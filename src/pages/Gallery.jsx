@@ -61,7 +61,7 @@ const Gallery = () => {
 
       <div className="grid grid-cols-5 gap-4">
         {images.map((image, index) => {
-          const isChecked = selectedIndexes.includes(index);
+          const isAlreadySelected = selectedIndexes.includes(index);
           const isHovered = hoveredIndex === index;
           return (
             <div
@@ -85,14 +85,21 @@ const Gallery = () => {
                   setHoveredIndex(null);
                 }}
               >
-                {isHovered && (
+                {isAlreadySelected ? (
                   <input
                     type="checkbox"
-                    checked={isChecked}
+                    checked={true}
                     onChange={() => handleCheckboxChange(index)}
                     className="cursor-pointer"
                   />
-                )}
+                ) : isHovered ? (
+                  <input
+                    type="checkbox"
+                    checked={selectedIndexes.includes(index)}
+                    onChange={() => handleCheckboxChange(index)}
+                    className="cursor-pointer"
+                  />
+                ) : null}
               </div>
               <img src={image} alt={image} className="w-full h-full" />
             </div>
